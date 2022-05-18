@@ -1,5 +1,5 @@
 import { Container, Row, Col, Media, Image, Card } from 'react-bootstrap';
-import BlogNavbar from '../components/Navbar';
+import BlogNavbar from 'components/Navbar';
 
 export default function Home() {
   return (
