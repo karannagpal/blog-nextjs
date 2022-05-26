@@ -5,12 +5,12 @@ import CardListItem from 'components/CardListItem';
 import CardItem from 'components/CardItem';
 import { getAllBlogs } from 'lib/api';
 
-export default function Home({ blogs, randomNumber }) {
+export default function Home({ blogs }) {
+  console.log(blogs);
   return (
     <PageLayout>
       <AuthorIntro />
       <hr />
-      <h3>{randomNumber}</h3>
       <Row className='mb-5'>
         {/* <Col md='10'>
           <CardListItem />
@@ -18,7 +18,12 @@ export default function Home({ blogs, randomNumber }) {
         {blogs.map((blog) => {
           return (
             <Col key={blog.slug} md='4'>
-              <CardItem title={blog.title} subtitle={blog.subtitle} />
+              <CardItem
+                title={blog.title}
+                subtitle={blog.subtitle}
+                date={blog.date}
+                blogImage={blog.coverImage}
+              />
             </Col>
           );
         })}
@@ -32,11 +37,9 @@ export default function Home({ blogs, randomNumber }) {
 // This creates a static page (server-side rendered page)
 export async function getStaticProps() {
   const blogs = await getAllBlogs();
-  const randomNumber = Math.random();
   return {
     props: {
       blogs,
-      randomNumber,
     },
   };
 }
