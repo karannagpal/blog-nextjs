@@ -23,6 +23,7 @@ export default function Home({ blogs }) {
                 subtitle={blog.subtitle}
                 date={blog.date}
                 blogImage={blog.coverImage}
+                authorName={blog.author}
               />
             </Col>
           );
