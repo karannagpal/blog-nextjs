@@ -6,7 +6,6 @@ import CardItem from 'components/CardItem';
 import { getAllBlogs } from 'lib/api';
 
 export default function Home({ blogs }) {
-  console.log(blogs);
   return (
     <PageLayout>
       <AuthorIntro />
@@ -23,7 +22,7 @@ export default function Home({ blogs }) {
                 subtitle={blog.subtitle}
                 date={blog.date}
                 blogImage={blog.coverImage}
-                authorName={blog.author}
+                author={blog.author}
               />
             </Col>
           );
