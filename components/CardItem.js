@@ -1,6 +1,7 @@
 import { Card } from 'react-bootstrap';
+import Link from 'next/link';
 
-const CardItem = ({ title, subtitle, date, blogImage, author }) => {
+const CardItem = ({ title, subtitle, date, blogImage, author, slug }) => {
   const prettifiedDate = new Date(date);
   return (
     <Card className={`fj-card`}>
@@ -28,7 +29,9 @@ const CardItem = ({ title, subtitle, date, blogImage, author }) => {
           <Card.Text>{subtitle}</Card.Text>
         </Card.Body>
       </div>
-      <a className='card-button'>Read More</a>
+      <Link href={`/blogs/${slug}`}>
+        <a className='card-button'>Read More</a>
+      </Link>
     </Card>
   );
 };
