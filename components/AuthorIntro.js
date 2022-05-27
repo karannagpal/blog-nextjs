@@ -18,7 +18,7 @@ const AuthorIntro = () => {
             <h5 className='font-weight-bold mb-0'>Hi there!</h5>
             <p className='welcome-text'>
               My name is Karan and I am a web developer with 3y of experience. Apart from making
-              software, I like photography, science &amp; cooking.
+              software, I like photography, science &amp; cooking. This is my blog.
             </p>
           </Media.Body>
         </Media>

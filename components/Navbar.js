@@ -4,7 +4,7 @@ const BlogNavbar = () => {
   return (
     <Navbar className='fj-navbar fj-nav-base' bg='transparent' expand='lg'>
       <Navbar.Brand className='fj-navbar-brand'>
-        <a href='#'>KaranNagpal</a>
+        <a href='#'>Karan Nagpal</a>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
