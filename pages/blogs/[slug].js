@@ -1,25 +1,31 @@
 import PageLayout from 'components/PageLayout';
+import { BlogHeader } from 'components/BlogHeader';
 import { getAllBlogs, getBlogBySlug } from 'lib/api';
+import { Row, Col } from 'react-bootstrap';
 
 const BlogDetail = ({ blog }) => {
   return (
-    <PageLayout>
-      <h2>{blog.slug}</h2>
-      <p>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione, illum culpa! Alias
-        dolores soluta blanditiis nemo quo nobis eligendi explicabo eos! Sequi omnis voluptatum
-        itaque aperiam consequuntur esse sit tenetur? Lorem ipsum, dolor sit amet consectetur
-        adipisicing elit. Ratione, illum culpa! Alias dolores soluta blanditiis nemo quo nobis
-        eligendi explicabo eos! Sequi omnis voluptatum itaque aperiam consequuntur esse sit tenetur?
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione, illum culpa! Alias
-        dolores soluta blanditiis nemo quo nobis eligendi explicabo eos! Sequi omnis voluptatum
-        itaque aperiam consequuntur esse sit tenetur? Lorem ipsum, dolor sit amet consectetur
-        adipisicing elit. Ratione, illum culpa! Alias dolores soluta blanditiis nemo quo nobis
-        eligendi explicabo eos! Sequi omnis voluptatum itaque aperiam consequuntur esse sit tenetur?
-      </p>
-      <p>
-        This blog post "{blog.title}" was about {blog.subtitle}. read more from {blog.author.name}
-      </p>
+    <PageLayout className='blog-detail-page'>
+      <Row>
+        <Col md={{ span: 10, offset: 1 }}>
+          <BlogHeader
+            title={blog.title}
+            subtitle={blog.subtitle}
+            coverImage={blog.coverImage}
+            date={blog.date}
+            author={blog.author}
+          />
+          <hr />
+          {/* Blog Content Here */}
+          It is a long established fact that a reader will be distracted by the readable content of
+          a page when looking at its layout. The point of using Lorem Ipsum is that it has a
+          more-or-less normal distribution of letters, as opposed to using 'Content here, content
+          here', making it look like readable English. Many desktop publishing packages and web page
+          editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum'
+          will uncover many web sites still in their infancy. Various versions have evolved over the
+          years, sometimes by accident, sometimes on purpose (injected humour and the like).
+        </Col>
+      </Row>
     </PageLayout>
   );
 };
