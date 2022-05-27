@@ -1,5 +1,5 @@
 import PageLayout from 'components/PageLayout';
-import { getBlogBySlug } from 'lib/api';
+import { getAllBlogs, getBlogBySlug } from 'lib/api';
 
 const BlogDetail = ({ blog }) => {
   return (
@@ -24,10 +24,21 @@ const BlogDetail = ({ blog }) => {
   );
 };
 
-export const getServerSideProps = async ({ params }) => {
+export const getStaticProps = async ({ params }) => {
   const blog = await getBlogBySlug(params.slug);
   return {
     props: { blog },
+  };
+};
+
+export const getStaticPaths = async () => {
+  const allBlogs = await getAllBlogs();
+  const paths = allBlogs.map((blog) => {
+    return { params: { slug: blog.slug } };
+  });
+  return {
+    paths,
+    fallback: false,
   };
 };
 
