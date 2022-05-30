@@ -1,34 +1,14 @@
 import PageLayout from 'components/PageLayout';
-import { BlogHeader } from 'components/BlogHeader';
 import { getAllBlogs, getBlogBySlug } from 'lib/api';
 import { Row, Col } from 'react-bootstrap';
-
-import BlockContent from '@sanity/block-content-to-react';
-
-const serializers = {
-  types: {
-    code: (props) => <pre data-language={props.node.language}>{props.node.code}</pre>,
-  },
-};
+import BlogContent from 'components/BlogContent';
 
 const BlogDetail = ({ blog }) => {
   return (
     <PageLayout className='blog-detail-page'>
       <Row>
         <Col md={{ span: 10, offset: 1 }}>
-          <BlogHeader
-            title={blog.title}
-            subtitle={blog.subtitle}
-            coverImage={blog.coverImage}
-            date={blog.date}
-            author={blog.author}
-          />
-          <hr />
-          <BlockContent
-            imageOptions={{ w: 320, h: 240, fit: 'max' }}
-            serializers={serializers}
-            blocks={blog.content}
-          />
+          <BlogContent blog={blog} />
         </Col>
       </Row>
     </PageLayout>
