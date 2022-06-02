@@ -10,9 +10,9 @@ const serializers = {
         <div className='code-filename'>File: {node.filename}.js</div>
       </HighlightCode>
     ),
-    image: ({ node: { asset, alt } }) => {
+    image: ({ node: { asset, alt, position = 'center' } }) => {
       return (
-        <div className='blog-image'>
+        <div className={`blog-image blog-image-${position}`}>
           <img src={urlFor(asset).height(300).url()} alt={alt} />
           <div className='image-alt'>"{alt}"</div>
         </div>
