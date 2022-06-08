@@ -1,21 +1,34 @@
+import { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import PageLayout from 'components/PageLayout';
 import AuthorIntro from 'components/AuthorIntro';
 import CardListItem from 'components/CardListItem';
 import CardItem from 'components/CardItem';
+import FilteringMenu from 'components/FilteringMenu';
 import { getAllBlogs } from 'lib/api';
 
 export default function Home({ blogs }) {
+  const [filter, setFilter] = useState({
+    view: { list: 0 },
+  });
+
   return (
     <PageLayout>
       <AuthorIntro />
+      <FilteringMenu
+        filter={filter}
+        onChange={(option, value) => {
+          setFilter({ ...filter, [option]: value });
+        }}
+      />
       <hr />
       <Row className='mb-5'>
-        {/* <Col md='10'>
-          <CardListItem />
-        </Col> */}
-        {blogs.map((blog) => {
-          return (
+        {blogs.map((blog) =>
+          filter.view.list === 0 ? (
+            <Col key={blog.slug} md='10'>
+              <CardListItem />
+            </Col>
+          ) : (
             <Col key={blog.slug} md='4'>
               <CardItem
                 title={blog.title}
@@ -26,16 +39,18 @@ export default function Home({ blogs }) {
                 slug={blog.slug}
               />
             </Col>
-          );
-        })}
+          )
+        )}
       </Row>
     </PageLayout>
   );
 }
 
-// This function is called during the build time
-// This function is called only on server-side (not client-side)
-// This creates a static page (server-side rendered page)
+/**
+ * This function is called during the build time
+ * This function is called only on server-side (not client-side)
+ * This creates a static page (server-side rendered page)
+ * */
 export async function getStaticProps() {
   const blogs = await getAllBlogs();
   return {
