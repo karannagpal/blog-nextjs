@@ -8,6 +8,7 @@ import FilteringMenu from 'components/FilteringMenu';
 import { getAllBlogs } from 'lib/api';
 
 export default function Home({ blogs }) {
+  // change this state name to renderList and type boolean
   const [filter, setFilter] = useState({
     view: { list: 0 },
   });

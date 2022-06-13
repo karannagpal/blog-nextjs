@@ -8,7 +8,7 @@ html, body {
   background-color: #f4f7f9;
 }
 
-.clickable {
+.clickable:hover {
   cursor: pointer;
 }
 
@@ -24,6 +24,10 @@ html, body {
   padding-top: 20px;;
 }
 
+.filter-menu-text {
+  color:hsl(210, 5%, 36%);
+  margin-right: 0.5rem;
+}
 
 .card.fj-card {
   // padding-top: 50px;
