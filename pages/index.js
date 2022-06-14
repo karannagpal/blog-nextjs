@@ -26,8 +26,17 @@ export default function Home({ blogs }) {
       <Row className='mb-5'>
         {blogs.map((blog) =>
           filter.view.list === 0 ? (
-            <Col key={blog.slug} md='10'>
-              <CardListItem />
+            <Col key={`${blog.slug}-list`} md='10'>
+              <CardListItem
+                title={blog.title}
+                subtitle={blog.subtitle}
+                date={blog.date}
+                author={blog.author}
+                link={{
+                  href: `/blogs/[slug]`,
+                  as: `/blogs/${blog.slug}`,
+                }}
+              />
             </Col>
           ) : (
             <Col key={blog.slug} md='4'>

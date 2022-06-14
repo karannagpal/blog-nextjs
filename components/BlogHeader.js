@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export const BlogHeader = ({ title, subtitle, coverImage, date, author }) => {
   return (
     <div className='blog-detail-header'>
@@ -15,7 +17,14 @@ export const BlogHeader = ({ title, subtitle, coverImage, date, author }) => {
       <h1 className='font-weight-bold blog-detail-header-title mb-0'>{title}</h1>
       <h2 className='blog-detail-header-subtitle mb-3'>{subtitle}</h2>
       {/* Check if contains cover image */}
-      <img className='img-fluid rounded cover-img' src={coverImage} alt='cover image' />
+      <Image
+        className='img-fluid rounded'
+        src={coverImage}
+        alt='cover'
+        width='500'
+        height='500'
+        layout='intrinsic'
+      />
     </div>
   );
 };
