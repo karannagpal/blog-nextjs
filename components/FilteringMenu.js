@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const LIST_VIEW_ICONS = ['border-all', 'list'];
+const LIST_VIEW_ICONS = ['list', 'border-all'];
 
 const FilteringMenu = ({ onChange, filter }) => {
   return (
