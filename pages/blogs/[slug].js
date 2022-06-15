@@ -9,7 +9,7 @@ const BlogDetail = ({ blog }) => {
   return (
     <PageLayout className='blog-detail-page'>
       <Row>
-        <Col md={{ span: 10, offset: 1 }}>
+        <Col md={{ span: 7, offset: 1 }}>
           <BlogHeader
             title={blog.title}
             subtitle={blog.subtitle}

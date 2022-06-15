@@ -8,13 +8,13 @@ import FilteringMenu from 'components/FilteringMenu';
 import { getAllBlogs } from 'lib/api';
 import { useGetBlogs } from 'actions';
 
-export default function Home({ blogs }) {
+export default function Home({ blogs: initialData }) {
   // change this state name to renderList and type boolean
   const [filter, setFilter] = useState({
     view: { list: 0 },
   });
 
-  const { data, error } = useGetBlogs();
+  const { data: blogs, error } = useGetBlogs(initialData);
 
   return (
     <PageLayout>
@@ -65,7 +65,7 @@ export default function Home({ blogs }) {
  * This creates a static page (server-side rendered page)
  * */
 export async function getStaticProps() {
-  const blogs = await getAllBlogs();
+  const blogs = await getAllBlogs({ offset: 0 });
   return {
     props: {
       blogs,
