@@ -11,7 +11,7 @@ const AuthorIntro = () => {
             width={64}
             height={64}
             className='mr-3'
-            src='https://scontent.fixc9-1.fna.fbcdn.net/v/t1.6435-9/61852240_1204582956389807_3983661190143279104_n.jpg?_nc_cat=104&ccb=1-6&_nc_sid=09cbfe&_nc_ohc=uwFtukCH7TsAX8ICm54&_nc_ht=scontent.fixc9-1.fna&oh=00_AT9WdaJ36tDgB8zowNQEz2BxFrkJS7W7qsTLCxbE-tlfOg&oe=62A80EC0'
+            src='https://cdn.sanity.io/images/5b3bmo85/production/5da5f685464ec795c7b42211273d8536a8a4ceb6-557x558.jpg'
             alt='Generic placeholder'
           />
           <Media.Body>
