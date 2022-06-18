@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Row } from 'react-bootstrap';
+import { Row, Button } from 'react-bootstrap';
 import PageLayout from 'components/PageLayout';
 import AuthorIntro from 'components/AuthorIntro';
 import FilteringMenu from 'components/FilteringMenu';
@@ -12,6 +12,9 @@ export default function Home({ blogs }) {
     view: { list: 0 },
   });
 
+  // isLoadingMore (boolean): swr is loading more data
+  // isReachingEnd (boolean): no more data
+  // loadMore (callback function): ask for more data
   const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogPages({ blogs, filter });
 
   return (
@@ -25,6 +28,16 @@ export default function Home({ blogs }) {
       />
       <hr />
       <Row className='mb-5'>{pages}</Row>
+      <div style={{ textAlign: 'center' }}>
+        <Button
+          onClick={loadMore}
+          size='lg'
+          disabled={isReachingEnd || isLoadingMore}
+          variant='outline-info'
+        >
+          {isLoadingMore ? 'Loading...' : isReachingEnd ? 'No more blogs' : 'Load more blogs'}
+        </Button>
+      </div>
     </PageLayout>
   );
 }

@@ -4,8 +4,8 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export const useGetHello = () => useSWR('/api/hello', fetcher);
 
-export const useGetBlogs = (initialData) => {
+export const useGetBlogs = ({ offset }, initialData) => {
   // use the below line for more recent versions of sanity
   // return useSWR('/api/blogs', fetcher, { fallbackData: initialData });
-  return useSWR('/api/blogs', fetcher, { initialData });
+  return useSWR(`/api/blogs?offset=${offset || 0}`, fetcher, { initialData });
 };
