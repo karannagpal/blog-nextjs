@@ -2,7 +2,7 @@ import { Container } from 'react-bootstrap';
 import Head from 'next/head';
 import BlogNavbar from './Navbar';
 
-const PageLayout = ({ children, className }) => {
+export default function PageLayout({ children, className }) {
   return (
     <>
       <Head>
@@ -28,6 +28,4 @@ const PageLayout = ({ children, className }) => {
       </Container>
     </>
   );
-};
-
-export default PageLayout;
+}

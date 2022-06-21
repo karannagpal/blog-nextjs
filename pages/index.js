@@ -4,7 +4,7 @@ import PageLayout from 'components/PageLayout';
 import AuthorIntro from 'components/AuthorIntro';
 import FilteringMenu from 'components/FilteringMenu';
 import { getAllBlogs } from 'lib/api';
-import { useGetBlogPages } from 'actions/pagination';
+import { useGetBlogsPages } from 'actions/pagination';
 
 export default function Home({ blogs }) {
   // change this state name to renderList and type boolean
@@ -15,7 +15,7 @@ export default function Home({ blogs }) {
   // isLoadingMore (boolean): swr is loading more data
   // isReachingEnd (boolean): no more data
   // loadMore (callback function): ask for more data
-  const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogPages({ blogs, filter });
+  const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogsPages({ blogs, filter });
 
   return (
     <PageLayout>

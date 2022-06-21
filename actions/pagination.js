@@ -4,7 +4,7 @@ import { Col } from 'react-bootstrap';
 import CardListItem from 'components/CardListItem';
 import CardItem from 'components/CardItem';
 
-export const useGetBlogPages = ({ blogs, filter }) => {
+export const useGetBlogsPages = ({ blogs, filter }) => {
   return useSWRPages(
     'index-page',
     ({ offset, withSWR }) => {

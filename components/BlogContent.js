@@ -1,7 +1,6 @@
 import BlockContent from '@sanity/block-content-to-react';
-import HighlightCode from './HighlightCode';
+import HighlightCode from 'components/HighlightCode';
 import { urlFor } from 'lib/api';
-import Image from 'next/image';
 
 const serializers = {
   types: {
@@ -14,7 +13,7 @@ const serializers = {
     image: ({ node: { asset, alt, position = 'center' } }) => {
       return (
         <div className={`blog-image blog-image-${position}`}>
-          <Image src={urlFor(asset).height(300).url()} alt={alt} width='200' height='200' />
+          <img src={urlFor(asset).height(300).fit('max').url()} alt={alt} />
           <div className='image-alt'>&quot;{alt}&quot;</div>
         </div>
       );
@@ -22,12 +21,6 @@ const serializers = {
   },
 };
 
-const BlogContent = ({ blog }) => {
-  return (
-    <>
-      <BlockContent serializers={serializers} blocks={blog.content} />
-    </>
-  );
-};
+const BlogContent = ({ content }) => <BlockContent serializers={serializers} blocks={content} />;
 
 export default BlogContent;
