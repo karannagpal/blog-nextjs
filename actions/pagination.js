@@ -11,8 +11,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
       // initialData will have value only on first load
       // after first load, offset will have some value
       let initialData = !offset && blogs;
-      const { data: paginatedBlogs } = withSWR(useGetBlogs({ offset }, initialData));
-      console.log('paginatedBlogs', paginatedBlogs);
+      const { data: paginatedBlogs } = withSWR(useGetBlogs({ offset, filter }, initialData));
 
       // show a loader if there's no response yet
       if (!paginatedBlogs) {

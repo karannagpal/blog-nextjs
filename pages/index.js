@@ -10,6 +10,7 @@ export default function Home({ blogs }) {
   // change this state name to renderList and type boolean
   const [filter, setFilter] = useState({
     view: { list: 0 },
+    date: { asc: 0 },
   });
 
   // isLoadingMore (boolean): swr is loading more data
@@ -48,7 +49,7 @@ export default function Home({ blogs }) {
  * This creates a static page (server-side rendered page)
  * */
 export async function getStaticProps() {
-  const blogs = await getAllBlogs({ offset: 0 });
+  const blogs = await getAllBlogs({ offset: 0, date: 'desc' });
   return {
     props: {
       blogs,
