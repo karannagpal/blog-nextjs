@@ -2,7 +2,6 @@ import { Card } from 'react-bootstrap';
 import Link from 'next/link';
 
 const CardListItem = ({ title, subtitle, date, author, link, mode = 'normal' }) => {
-  const prettifiedDate = new Date(date);
   return (
     <Card className={`fj-card fj-card-list ${mode}`}>
       <div className='card-body-wrapper'>
@@ -22,7 +21,7 @@ const CardListItem = ({ title, subtitle, date, author, link, mode = 'normal' }) 
           ) : (
             <div>
               <Card.Title className='font-weight-bold mb-1'>{author?.name}</Card.Title>
-              <Card.Text className='card-date'>{prettifiedDate.toDateString()}</Card.Text>
+              <Card.Text className='card-date'>{date}</Card.Text>
             </div>
           )}
         </Card.Header>

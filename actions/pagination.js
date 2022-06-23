@@ -6,6 +6,7 @@ import CardListItem from 'components/CardListItem';
 import CardItem from 'components/CardItem';
 import CardItemBlank from 'components/CardItemBlank';
 import CardListItemBlank from 'components/CardListItemBlank';
+import moment from 'moment';
 
 export const useGetBlogsPages = ({ blogs, filter }) => {
   useEffect(() => {
@@ -49,7 +50,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
             <CardListItem
               title={blog.title}
               subtitle={blog.subtitle}
-              date={blog.date}
+              date={moment(blog.date).format('LLL')}
               author={blog.author}
               link={{
                 href: `/blogs/[slug]`,
@@ -62,7 +63,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
             <CardItem
               title={blog.title}
               subtitle={blog.subtitle}
-              date={blog.date}
+              date={moment(blog.date).format('LLL')}
               blogImage={blog.coverImage}
               author={blog.author}
               slug={blog.slug}
@@ -78,7 +79,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
       if (SWR.data && SWR.data.length === 0) {
         return null;
       }
-      return (index + 1) * 3;
+      return (index + 1) * 6;
     },
     [filter]
   );

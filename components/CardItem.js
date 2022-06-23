@@ -3,11 +3,10 @@ import Link from 'next/link';
 import { urlFor } from 'lib/api';
 
 const CardItem = ({ title, subtitle, date, blogImage, author, slug, mode = 'normal' }) => {
-  const prettifiedDate = new Date(date);
   // TODO: optimise conditional rendering using 'mode'
   return (
     <Card className={`fj-card ${mode}`}>
-      <div className='card-body-wrapper'>
+      <div className={`card-body-wrapper ${!blogImage ? 'no-image' : ''}`}>
         <Card.Header className='d-flex flex-row'>
           <img
             src={author?.avatar || `https://via.placeholder.com/150`}
@@ -27,7 +26,7 @@ const CardItem = ({ title, subtitle, date, blogImage, author, slug, mode = 'norm
                 <Card.Title className='font-weight-bold mb-1'>
                   {author?.name || 'Anonymous'}
                 </Card.Title>
-                <Card.Text className='card-date'>{prettifiedDate.toDateString()}</Card.Text>
+                <Card.Text className='card-date'>{date}</Card.Text>
               </>
             )}
           </div>
@@ -36,10 +35,12 @@ const CardItem = ({ title, subtitle, date, blogImage, author, slug, mode = 'norm
           {mode === 'placeholder' ? (
             <div className='image-placeholder' />
           ) : (
-            <Card.Img
-              src={urlFor(blogImage).height(300).crop('center').fit('clip').url()}
-              alt='Card image cap'
-            />
+            blogImage && (
+              <Card.Img
+                src={urlFor(blogImage).height(300).crop('center').fit('clip').url()}
+                alt='Card image cap'
+              />
+            )
           )}
         </div>
         <Card.Body>
