@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useGetBlogs } from 'actions';
 import { useSWRPages } from 'swr';
 import { Col } from 'react-bootstrap';
@@ -5,12 +6,22 @@ import CardListItem from 'components/CardListItem';
 import CardItem from 'components/CardItem';
 
 export const useGetBlogsPages = ({ blogs, filter }) => {
+  useEffect(() => {
+    window.__pagination_init = true;
+  }, []);
+
   return useSWRPages(
     'index-page',
     ({ offset, withSWR }) => {
       // initialData will have value only on first load
       // after first load, offset will have some value
       let initialData = !offset && blogs;
+
+      if (typeof window !== 'undefined' && window.__pagination_init) {
+        // first render happens on serverside, where window object is not available
+        initialData = null;
+      }
+
       const { data: paginatedBlogs } = withSWR(useGetBlogs({ offset, filter }, initialData));
 
       // show a loader if there's no response yet
