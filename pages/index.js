@@ -34,7 +34,7 @@ export default function Home({ blogs }) {
           onClick={loadMore}
           size='lg'
           disabled={isReachingEnd || isLoadingMore}
-          variant='outline-info'
+          variant={isReachingEnd ? 'outline-secondary' : 'outline-info'}
         >
           {isLoadingMore ? 'Loading...' : isReachingEnd ? 'No more blogs' : 'Load more blogs'}
         </Button>

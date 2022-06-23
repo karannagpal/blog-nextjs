@@ -4,6 +4,8 @@ import { useSWRPages } from 'swr';
 import { Col } from 'react-bootstrap';
 import CardListItem from 'components/CardListItem';
 import CardItem from 'components/CardItem';
+import CardItemBlank from 'components/CardItemBlank';
+import CardListItemBlank from 'components/CardListItemBlank';
 
 export const useGetBlogsPages = ({ blogs, filter }) => {
   useEffect(() => {
@@ -24,9 +26,21 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
 
       const { data: paginatedBlogs } = withSWR(useGetBlogs({ offset, filter }, initialData));
 
-      // show a loader if there's no response yet
+      // showing placeholder if there's no response yet
       if (!paginatedBlogs) {
-        return 'Loading...';
+        return Array(3)
+          .fill(0)
+          .map((_, index) =>
+            filter.view.list ? (
+              <Col key={`placeholder-listItem-${index}`} md='10'>
+                <CardListItemBlank />
+              </Col>
+            ) : (
+              <Col key={`placeholder-item-${index}`} md='4'>
+                <CardItemBlank />
+              </Col>
+            )
+          );
       }
 
       return paginatedBlogs.map((blog) =>
