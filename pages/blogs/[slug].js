@@ -1,12 +1,24 @@
 import PageLayout from 'components/PageLayout';
 import { getAllBlogs, getBlogBySlug } from 'lib/api';
+import ErrorPage from 'next/error';
+import { useRouter } from 'next/router';
 import { Row, Col } from 'react-bootstrap';
 import BlogContent from 'components/BlogContent';
 import BlogHeader from 'components/BlogHeader';
 import { urlFor } from 'lib/api';
-import { moment } from 'moment';
+import moment from 'moment';
 
 const BlogDetail = ({ blog }) => {
+  // this and the next couple of if conditions are totally optional
+  const router = useRouter();
+  if (!router.isFallback && !blog?.slug) {
+    return <ErrorPage statusCode={404} />;
+  }
+
+  if (router.isFallback) {
+    return <PageLayout className='blog-detail-page'>Loading...</PageLayout>;
+  }
+
   return (
     <PageLayout className='blog-detail-page'>
       <Row>
@@ -16,7 +28,7 @@ const BlogDetail = ({ blog }) => {
             subtitle={blog.subtitle}
             coverImage={urlFor(blog.coverImage).height(600).url()}
             author={blog.author}
-            date={moment(blog.date)}
+            date={moment(blog.date).format('LLL')}
           />
           <hr />
           {blog.content && <BlogContent content={blog.content} />}
@@ -38,7 +50,7 @@ export async function getStaticPaths() {
   const blogs = await getAllBlogs();
   return {
     paths: blogs?.map((b) => ({ params: { slug: b.slug } })),
-    fallback: false,
+    fallback: true,
   };
 }
 
