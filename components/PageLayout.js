@@ -1,10 +1,13 @@
 import { Container } from 'react-bootstrap';
 import Head from 'next/head';
 import BlogNavbar from './Navbar';
+import { useTheme } from 'providers/ThemeProvider';
 
 export default function PageLayout({ children, className }) {
+  const { currentTheme, toggleTheme } = useTheme();
+
   return (
-    <>
+    <div className={currentTheme.type}>
       <Head>
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin />
@@ -14,7 +17,7 @@ export default function PageLayout({ children, className }) {
         />
       </Head>
       <Container>
-        <BlogNavbar />
+        <BlogNavbar currentTheme={currentTheme} toggleTheme={toggleTheme} />
         <div className={`page-wrapper ${className}`}>{children}</div>
         <footer className='page-footer'>
           <div>
@@ -26,6 +29,13 @@ export default function PageLayout({ children, className }) {
           </div>
         </footer>
       </Container>
-    </>
+      <style jsx global>{`
+        html body {
+          background: ${currentTheme.background};
+          color: ${currentTheme.fontColor};
+          transition: color 0.1s ease-in-out 0s, background: 0.3s ease-in-out 0s;
+        }
+      `}</style>
+    </div>
   );
 }
