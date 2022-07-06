@@ -5,10 +5,11 @@ import { useRouter } from 'next/router';
 import { Row, Col } from 'react-bootstrap';
 import BlogContent from 'components/BlogContent';
 import BlogHeader from 'components/BlogHeader';
+import PreviewAlert from 'components/PreviewAlert';
 import { urlFor } from 'lib/api';
 import moment from 'moment';
 
-const BlogDetail = ({ blog }) => {
+const BlogDetail = ({ blog, preview }) => {
   // this and the next couple of if conditions are totally optional
   const router = useRouter();
   if (!router.isFallback && !blog?.slug) {
@@ -23,6 +24,7 @@ const BlogDetail = ({ blog }) => {
     <PageLayout className='blog-detail-page'>
       <Row>
         <Col md={{ span: 10, offset: 1 }}>
+          {preview && <PreviewAlert />}
           <BlogHeader
             title={blog.title}
             subtitle={blog.subtitle}
@@ -38,10 +40,11 @@ const BlogDetail = ({ blog }) => {
   );
 };
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, preview = false, previewData }) {
+  // TODO: pass preview to getBlogBySlug to fetch draft version of blog
   const blog = await getBlogBySlug(params.slug);
   return {
-    props: { blog },
+    props: { blog, preview },
   };
 }
 

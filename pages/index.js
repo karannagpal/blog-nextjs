@@ -3,10 +3,11 @@ import { Row, Button } from 'react-bootstrap';
 import PageLayout from 'components/PageLayout';
 import AuthorIntro from 'components/AuthorIntro';
 import FilteringMenu from 'components/FilteringMenu';
+import PreviewAlert from 'components/PreviewAlert';
 import { getPaginatedBlogs } from 'lib/api';
 import { useGetBlogsPages } from 'actions/pagination';
 
-export default function Home({ blogs }) {
+export default function Home({ blogs, preview }) {
   // change this state name to renderList and type boolean
   const [filter, setFilter] = useState({
     view: { list: 0 },
@@ -20,6 +21,7 @@ export default function Home({ blogs }) {
 
   return (
     <PageLayout>
+      {preview && <PreviewAlert />}
       <AuthorIntro />
       <FilteringMenu
         filter={filter}
@@ -48,11 +50,12 @@ export default function Home({ blogs }) {
  * This function is called only on server-side (not client-side)
  * This creates a static page (server-side rendered page)
  * */
-export async function getStaticProps() {
+export async function getStaticProps({ preview = false }) {
   const blogs = await getPaginatedBlogs({ offset: 0, date: 'desc' });
   return {
     props: {
       blogs,
+      preview,
     },
   };
 }
