@@ -11,7 +11,7 @@ const BlogNavbar = ({ currentTheme, toggleTheme }) => {
       variant={currentTheme.type}
     >
       <Navbar.Brand className='fj-navbar-brand'>
-        <Link href='/currentTheme'>
+        <Link href='/'>
           <a style={{ color: currentTheme.fontColor }}>Karan Nagpal</a>
         </Link>
       </Navbar.Brand>
