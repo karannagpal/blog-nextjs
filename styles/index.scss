@@ -61,6 +61,7 @@ html, body {
 
   .card-main-title {
     font-size: 22px;
+    height: 60px;
   }
 
   .card-header {
@@ -251,6 +252,10 @@ html, body {
     float: right;
     margin-left: 30px;
   }
+
+  > img {
+    width: 100%;
+  }
 }
 
 .image-alt {
@@ -398,4 +403,32 @@ html, body {
       }
     }
   }
+}
+
+.view.overlay {
+  height: 320px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0;
+
+  > img {
+    object-fit: cover;
+    height: 100%;
+  }
+}
+
+
+blockquote {
+  position: relative;
+  color: #999;
+  font-size: 1.25em;
+  font-family: Georgia,Times New Roman,Times,serif;
+  font-style: italic;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-origin: border-box;
+  background-size: 2em;
 }
