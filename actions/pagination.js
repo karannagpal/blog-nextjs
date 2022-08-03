@@ -3,9 +3,9 @@ import { useSWRInfinite } from 'swr';
 
 export const useGetBlogsPages = ({ filter }) => {
   // useSWRInfinite has 3 args
-  // first one is for getting url
-  // second one is the fetcher,
-  // last (optional arg) is for passing additional options or configuration
+  // first one (function): getting fetch url
+  // second one (function): the fetcher,
+  // last (optional object): for passing additional options or configuration
   const results = useSWRInfinite(
     (index, previousPageData) => {
       if (index === 0) {
@@ -32,20 +32,3 @@ export const useGetBlogsPages = ({ filter }) => {
 
   return { ...results, hitEnd };
 };
-
-// // showing placeholder if there's no response yet
-// if (!paginatedBlogs) {
-//   return Array(3)
-//     .fill(0)
-//     .map((_, index) =>
-//       filter.view.list ? (
-//         <Col key={`placeholder-listItem-${index}`} md='10'>
-//           <CardListItemBlank />
-//         </Col>
-//       ) : (
-//         <Col key={`placeholder-item-${index}`} md='6' lg='4'>
-//           <CardItemBlank />
-//         </Col>
-//       )
-//     );
-// }

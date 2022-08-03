@@ -5,46 +5,11 @@ import PageLayout from 'components/PageLayout';
 import AuthorIntro from 'components/AuthorIntro';
 import FilteringMenu from 'components/FilteringMenu';
 import PreviewAlert from 'components/PreviewAlert';
-import CardListItem from 'components/CardListItem';
-import CardItem from 'components/CardItem';
+import BlogList from 'components/BlogList';
 import { getPaginatedBlogs } from 'lib/api';
 import { useGetBlogsPages } from 'actions/pagination';
 import CardItemBlank from 'components/CardItemBlank';
 import CardListItemBlank from 'components/CardListItemBlank';
-import moment from 'moment';
-
-// can be taken out as separate component
-export const BlogList = ({ data, filter }) => {
-  return data.map((page) =>
-    page.map((blog) =>
-      filter.view.list ? (
-        <Col key={`${blog.slug}-list`} md='10'>
-          <CardListItem
-            title={blog.title}
-            subtitle={blog.subtitle}
-            date={moment(blog.date).format('LLL')}
-            author={blog.author}
-            link={{
-              href: `/blogs/[slug]`,
-              as: `/blogs/${blog.slug}`,
-            }}
-          />
-        </Col>
-      ) : (
-        <Col key={blog.slug} md='6' lg='4'>
-          <CardItem
-            title={blog.title}
-            subtitle={blog.subtitle}
-            date={moment(blog.date).format('LLL')}
-            blogImage={blog.coverImage}
-            author={blog.author}
-            slug={blog.slug}
-          />
-        </Col>
-      )
-    )
-  );
-};
 
 export default function Home({ blogs, preview }) {
   // change this state name to renderList and type boolean
