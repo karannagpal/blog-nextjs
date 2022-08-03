@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useGetBlogs } from 'actions';
 import { useSWRPages } from 'swr';
 import { Col } from 'react-bootstrap';
@@ -8,24 +7,45 @@ import CardItemBlank from 'components/CardItemBlank';
 import CardListItemBlank from 'components/CardListItemBlank';
 import moment from 'moment';
 
-export const useGetBlogsPages = ({ blogs, filter }) => {
-  useEffect(() => {
-    window.__pagination_init = true;
-  }, []);
+export const BlogList = ({ blogs, filter }) => {
+  return blogs.map((blog) =>
+    filter.view.list ? (
+      <Col key={`${blog.slug}-list`} md='10'>
+        <CardListItem
+          title={blog.title}
+          subtitle={blog.subtitle}
+          date={moment(blog.date).format('LLL')}
+          author={blog.author}
+          link={{
+            href: `/blogs/[slug]`,
+            as: `/blogs/${blog.slug}`,
+          }}
+        />
+      </Col>
+    ) : (
+      <Col key={blog.slug} md='6' lg='4'>
+        <CardItem
+          title={blog.title}
+          subtitle={blog.subtitle}
+          date={moment(blog.date).format('LLL')}
+          blogImage={blog.coverImage}
+          author={blog.author}
+          slug={blog.slug}
+        />
+      </Col>
+    )
+  );
+};
 
+export const useGetBlogsPages = ({ blogs, filter }) => {
   return useSWRPages(
     'index-page',
     ({ offset, withSWR }) => {
-      // initialData will have value only on first load
-      // after first load, offset will have some value
-      let initialData = !offset && blogs;
+      const { data: paginatedBlogs, error } = withSWR(useGetBlogs({ offset, filter }));
 
-      if (typeof window !== 'undefined' && window.__pagination_init) {
-        // first render happens on serverside, where window object is not available
-        initialData = null;
+      if (!offset && !paginatedBlogs && !error) {
+        return <BlogList blogs={blogs} filter={filter} />;
       }
-
-      const { data: paginatedBlogs } = withSWR(useGetBlogs({ offset, filter }, initialData));
 
       // showing placeholder if there's no response yet
       if (!paginatedBlogs) {
@@ -44,33 +64,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
           );
       }
 
-      return paginatedBlogs.map((blog) =>
-        filter.view.list ? (
-          <Col key={`${blog.slug}-list`} md='10'>
-            <CardListItem
-              title={blog.title}
-              subtitle={blog.subtitle}
-              date={moment(blog.date).format('LLL')}
-              author={blog.author}
-              link={{
-                href: `/blogs/[slug]`,
-                as: `/blogs/${blog.slug}`,
-              }}
-            />
-          </Col>
-        ) : (
-          <Col key={blog.slug} md='6' lg='4'>
-            <CardItem
-              title={blog.title}
-              subtitle={blog.subtitle}
-              date={moment(blog.date).format('LLL')}
-              blogImage={blog.coverImage}
-              author={blog.author}
-              slug={blog.slug}
-            />
-          </Col>
-        )
-      );
+      return <BlogList blogs={paginatedBlogs} filter={filter} />;
     },
     // here you will compute the offset, that will get passed into prev callback function
     // SWR: data you'll get using 'useSWR' function
