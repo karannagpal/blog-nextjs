@@ -1,6 +1,5 @@
 import { Col } from 'react-bootstrap';
-import CardListItem from 'components/CardListItem';
-import CardItem from 'components/CardItem';
+import { CardListItem, CardItem } from 'components';
 import moment from 'moment';
 
 const BlogList = ({ data, filter }) => {

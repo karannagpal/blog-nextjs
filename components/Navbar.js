@@ -1,6 +1,6 @@
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import Link from 'next/link';
-import ThemeToggle from 'components/ThemeToggle';
+import { ThemeToggle } from 'components';
 
 const BlogNavbar = ({ currentTheme, toggleTheme }) => {
   return (
