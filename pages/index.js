@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 // create an index file for components
-import PageLayout from 'components/PageLayout';
-import AuthorIntro from 'components/AuthorIntro';
-import FilteringMenu from 'components/FilteringMenu';
-import PreviewAlert from 'components/PreviewAlert';
-import BlogList from 'components/BlogList';
+import {
+  AuthorIntro,
+  BlogList,
+  CardItemBlank,
+  CardListItemBlank,
+  FilteringMenu,
+  PageLayout,
+  PreviewAlert,
+} from 'components';
 import { getPaginatedBlogs } from 'lib/api';
 import { useGetBlogsPages } from 'actions/pagination';
-import CardItemBlank from 'components/CardItemBlank';
-import CardListItemBlank from 'components/CardListItemBlank';
 
 export default function Home({ blogs, preview }) {
   // change this state name to renderList and type boolean

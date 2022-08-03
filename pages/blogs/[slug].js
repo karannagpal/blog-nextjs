@@ -1,11 +1,8 @@
-import PageLayout from 'components/PageLayout';
+import { BlogContent, BlogHeader, PageLayout, PreviewAlert } from 'components';
 import { getAllBlogs, getBlogBySlug } from 'lib/api';
 import ErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import { Row, Col } from 'react-bootstrap';
-import BlogContent from 'components/BlogContent';
-import BlogHeader from 'components/BlogHeader';
-import PreviewAlert from 'components/PreviewAlert';
 import { urlFor } from 'lib/api';
 import moment from 'moment';
 

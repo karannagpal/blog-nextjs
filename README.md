@@ -1,4 +1,6 @@
-# NextJS blog
+# Karan's NextJS blog
+
+- Udemy's NextJS & sanity CMS course
 
 ## Getting Started
 
