@@ -1,11 +1,50 @@
 import { useState } from 'react';
-import { Row, Button } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
+// create an index file for components
 import PageLayout from 'components/PageLayout';
 import AuthorIntro from 'components/AuthorIntro';
 import FilteringMenu from 'components/FilteringMenu';
 import PreviewAlert from 'components/PreviewAlert';
+import CardListItem from 'components/CardListItem';
+import CardItem from 'components/CardItem';
 import { getPaginatedBlogs } from 'lib/api';
 import { useGetBlogsPages } from 'actions/pagination';
+import CardItemBlank from 'components/CardItemBlank';
+import CardListItemBlank from 'components/CardListItemBlank';
+import moment from 'moment';
+
+// can be taken out as separate component
+export const BlogList = ({ data, filter }) => {
+  return data.map((page) =>
+    page.map((blog) =>
+      filter.view.list ? (
+        <Col key={`${blog.slug}-list`} md='10'>
+          <CardListItem
+            title={blog.title}
+            subtitle={blog.subtitle}
+            date={moment(blog.date).format('LLL')}
+            author={blog.author}
+            link={{
+              href: `/blogs/[slug]`,
+              as: `/blogs/${blog.slug}`,
+            }}
+          />
+        </Col>
+      ) : (
+        <Col key={blog.slug} md='6' lg='4'>
+          <CardItem
+            title={blog.title}
+            subtitle={blog.subtitle}
+            date={moment(blog.date).format('LLL')}
+            blogImage={blog.coverImage}
+            author={blog.author}
+            slug={blog.slug}
+          />
+        </Col>
+      )
+    )
+  );
+};
 
 export default function Home({ blogs, preview }) {
   // change this state name to renderList and type boolean
@@ -14,10 +53,12 @@ export default function Home({ blogs, preview }) {
     date: { asc: 0 },
   });
 
-  // isLoadingMore (boolean): swr is loading more data
-  // isReachingEnd (boolean): no more data
-  // loadMore (callback function): ask for more data
-  const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogsPages({ blogs, filter });
+  // data (array of arrays): paginated data
+  // size (number): value of current page
+  // setSize (function): change value of current page
+  // isValidating (boolean): tells if data fetching is in progress
+  // hitEnd (boolean): true when no more data
+  const { data, size, setSize, isValidating, hitEnd } = useGetBlogsPages({ blogs, filter });
 
   return (
     <PageLayout>
@@ -30,15 +71,31 @@ export default function Home({ blogs, preview }) {
         }}
       />
       <hr />
-      <Row className='mb-5'>{pages}</Row>
+      <Row className='mb-5'>
+        <BlogList data={data || [blogs]} filter={filter} />
+        {isValidating &&
+          Array(3)
+            .fill(0)
+            .map((_, i) =>
+              filter.view.list ? (
+                <Col key={`placeholder-listItem-${i}`} md='10'>
+                  <CardListItemBlank />
+                </Col>
+              ) : (
+                <Col key={`placeholder-item-${i}`} md='6' lg='4'>
+                  <CardItemBlank />
+                </Col>
+              )
+            )}
+      </Row>
       <div style={{ textAlign: 'center' }}>
         <Button
-          onClick={loadMore}
+          onClick={() => setSize(size + 1)}
           size='lg'
-          disabled={isReachingEnd || isLoadingMore}
-          variant={isReachingEnd ? 'outline-secondary' : 'outline-info'}
+          disabled={hitEnd}
+          variant={hitEnd ? 'outline-secondary' : 'outline-info'}
         >
-          {isLoadingMore ? 'Loading...' : isReachingEnd ? 'No more blogs' : 'Load more blogs'}
+          {hitEnd ? 'No more blogs' : 'Load more blogs'}
         </Button>
       </div>
     </PageLayout>
